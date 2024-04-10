@@ -1,9 +1,11 @@
-import { dataUrl, debounce, getImageSize } from "@/libs/utils";
-import { CldImage } from "next-cloudinary";
+"use client";
+
+import { dataUrl, debounce, download, getImageSize } from "@/libs/utils";
+import { CldImage, getCldImageUrl } from "next-cloudinary";
 import { PlaceholderValue } from "next/dist/shared/lib/get-img-props";
 import Image from "next/image";
 
-const transformedCustomImage = (props: TransformedImageProps) => {
+const TransformedCustomImage = (props: TransformedImageProps) => {
   const {
     image,
     type,
@@ -14,12 +16,27 @@ const transformedCustomImage = (props: TransformedImageProps) => {
     hasDownload = false,
   } = props;
 
+  const downloadHandler = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    e.preventDefault();
+    download(
+      getCldImageUrl({
+        width: image?.width,
+        height: image?.height,
+        src: image?.publicId,
+        ...transformationConfig,
+      }),
+      title
+    );
+  };
+
   return (
     <div className="flex flex-col gap-4">
       <div className="flex-between">
         <h3 className="h3-bold text-dark-600">Transformed</h3>
         {hasDownload && (
-          <button>
+          <button onClick={downloadHandler} className="download-btn">
             <Image
               src={"/assets/icons/download.svg"}
               alt="Download"
@@ -46,7 +63,7 @@ const transformedCustomImage = (props: TransformedImageProps) => {
               debounce(
                 () => setIsTransforming && setIsTransforming(false),
                 5000
-              );
+              )();
             }}
             {...transformationConfig}
           />
@@ -59,6 +76,9 @@ const transformedCustomImage = (props: TransformedImageProps) => {
                 width={50}
                 height={50}
               />
+              <p className="text-white/80 mt-2 text-center text-sm-14-medium">
+                Please wait
+              </p>
             </div>
           )}
         </div>
@@ -69,4 +89,4 @@ const transformedCustomImage = (props: TransformedImageProps) => {
   );
 };
 
-export default transformedCustomImage;
+export default TransformedCustomImage;
