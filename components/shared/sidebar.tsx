@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import BrandLogo from "@/public/assets/images/logo-text.svg";
+import BrandLogo from "@/public/assets/images/brand-logo.png";
 import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import { navLinks } from "@/constants";
 import { usePathname } from "next/navigation";
@@ -14,7 +14,7 @@ const Sidebar = () => {
     <aside className="sidebar">
       <div className="flex size-full flex-col gap-4">
         <Link href="/" className="sidebar-logo">
-          <Image src={BrandLogo} alt="brand-logo" width={140} height={140} />
+          <Image src={BrandLogo} alt="brand-logo" width={160} height={140} />
         </Link>
 
         <nav className="sidebar-nav">

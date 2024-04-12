@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/sheet";
 import Link from "next/link";
 import hamburger from "@/public/assets/icons/menu.svg";
-import brandLogo from "@/public/assets/images/logo-text.svg";
+import brandLogo from "@/public/assets/images/brand-logo.png";
 import Image from "next/image";
 import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import { navLinks } from "@/constants";
